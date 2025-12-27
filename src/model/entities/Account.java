@@ -6,14 +6,15 @@ public class Account {
 
 	private Integer number;
 	private String holder;
-	private Double balance;
-	private Double withdrawLimit;
+	private double balance;
+	private double withdrawLimit;
 	
 	public Account() {
-		
+		this.balance = 0.0;
+		this.withdrawLimit = 0.0;
 	}
 
-	public Account(Integer number, String holder, Double balance, Double withdrawLimit) {
+	public Account(Integer number, String holder, double balance, double withdrawLimit) {
 		this.number = number;
 		this.holder = holder;
 		this.balance = balance;
@@ -50,10 +51,16 @@ public class Account {
 	}
 	
 	public void deposit(double amount) {
+		if(amount <= 0) {
+			throw new DomainException("Deposit amount must be positiver");
+		}
 		balance += amount;
 	}
 	
 	public void withdraw(double amount) {
+		if(amount <= 0) {
+			throw new DomainException("Deposit amount must be positive");
+		}
 		if(withdrawLimit < amount) {
 			throw new DomainException("The amount exceeds withdraw limit");
 		}
